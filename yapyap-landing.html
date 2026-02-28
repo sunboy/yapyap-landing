@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YapYap — Talk. It types.</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --logo: 'Baloo 2', cursive;
+  --heading: 'Nunito', sans-serif;
+  --body: 'Quicksand', sans-serif;
+  --hand: 'Caveat', cursive;
+  --bg: #1E1E24;
+  --bg2: #24212E;
+  --lavender: #C4B8E8;
+  --warm: #F4A261;
+  --mint: #7EC8A0;
+  --zzz: #8B8FC7;
+  --blush: #E8A0B4;
+  --red: #E85D5D;
+  --text1: rgba(255,255,255,0.88);
+  --text2: rgba(255,255,255,0.55);
+  --text3: rgba(255,255,255,0.30);
+  --border: rgba(255,255,255,0.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text1); font-family: var(--body); overflow-x: hidden; }
+
+/* ========== NAV ========== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(30,30,36,0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--logo); font-size: 22px; font-weight: 800;
+  background: linear-gradient(135deg, var(--lavender) 30%, var(--warm) 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  font-family: var(--body); font-size: 13px; font-weight: 600;
+  color: var(--text3); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text1); }
+.nav-cta {
+  padding: 7px 18px; border-radius: 20px; background: var(--warm); color: #1E1E24;
+  font-family: var(--heading); font-size: 12px; font-weight: 700; text-decoration: none;
+  transition: transform 0.2s;
+}
+.nav-cta:hover { transform: translateY(-1px); }
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 100px 24px 60px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute;
+  width: 440px; height: 440px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,184,232,0.10) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -55%); pointer-events: none;
+}
+.hero-creature { width: 180px; height: 165px; margin-bottom: 24px; position: relative; z-index: 2; }
+.hero-logo {
+  font-family: var(--logo); font-size: 58px; font-weight: 800;
+  background: linear-gradient(135deg, var(--lavender) 30%, var(--warm) 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1; margin-bottom: 10px; z-index: 2; position: relative;
+}
+.hero-tagline {
+  font-family: var(--hand); font-size: 26px; color: var(--text2);
+  margin-bottom: 16px; z-index: 2; position: relative;
+}
+.hero-sub {
+  font-family: var(--body); font-size: 15px; font-weight: 500; color: var(--text3);
+  max-width: 440px; line-height: 1.7; margin-bottom: 28px; z-index: 2; position: relative;
+}
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; background: var(--warm); color: #1E1E24;
+  font-family: var(--heading); font-size: 15px; font-weight: 700;
+  border: none; border-radius: 50px; cursor: pointer; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s; z-index: 2; position: relative;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(244,162,97,0.3); }
+.hero-pill {
+  margin-top: 14px; display: flex; align-items: center; gap: 8px;
+  padding: 5px 14px; border-radius: 20px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  font-family: var(--body); font-size: 12px; font-weight: 500; color: var(--text3);
+  z-index: 2; position: relative;
+}
+.hero-pill .dot { width:6px; height:6px; border-radius:50%; background: var(--mint); }
+
+/* ---- Inline 3-step strip ---- */
+.hero-steps {
+  display: flex; gap: 40px; margin-top: 48px; z-index: 2; position: relative;
+}
+.hero-step { display: flex; flex-direction: column; align-items: center; gap: 6px; max-width: 140px; }
+.hero-step-creature { width: 52px; height: 52px; }
+.hero-step-label {
+  font-family: var(--heading); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; color: var(--text3);
+}
+.hero-step-arrow { align-self: center; margin-top: 24px; color: var(--text3); font-size: 18px; opacity: 0.3; }
+
+/* ========== CONTEXT-AWARE ========== */
+.aware { padding: 80px 24px 90px; max-width: 860px; margin: 0 auto; }
+.aware-title {
+  font-family: var(--hand); font-size: 34px; font-weight: 700;
+  color: var(--blush); text-align: center; margin-bottom: 6px;
+}
+.aware-sub {
+  font-family: var(--body); font-size: 13px; color: var(--text3);
+  text-align: center; margin-bottom: 40px;
+}
+.aware-creature-row { display: flex; justify-content: center; margin-bottom: 32px; position: relative; }
+.aware-creature-wrap {
+  position: relative; width: 100px; height: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+.radar-sweep {
+  position: absolute; width: 90px; height: 90px; border-radius: 50%;
+  border: 1px solid rgba(232,160,180,0.08);
+  animation: radarPulse 3s ease-out infinite;
+}
+.radar-sweep.r2 { animation-delay: 1s; }
+.radar-sweep.r3 { animation-delay: 2s; }
+@keyframes radarPulse {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.aware-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.app-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 16px 18px; border-radius: 14px;
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.app-card:hover { border-color: rgba(232,160,180,0.2); }
+.app-card-top { display: flex; align-items: center; gap: 8px; }
+.app-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.app-icon.ide { background: rgba(126,200,160,0.15); }
+.app-icon.email { background: rgba(244,162,97,0.15); }
+.app-icon.slack { background: rgba(196,184,232,0.15); }
+.app-icon.docs { background: rgba(139,143,199,0.15); }
+.app-icon.term { background: rgba(232,93,93,0.12); }
+.app-icon.social { background: rgba(232,160,180,0.15); }
+.app-name { font-family: var(--heading); font-size: 13px; font-weight: 700; color: var(--text1); }
+.app-check { font-family: var(--hand); font-size: 13px; font-weight: 600; color: var(--mint); margin-left: auto; }
+.app-example {
+  font-family: var(--body); font-size: 11px; color: var(--text3); line-height: 1.5;
+  padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,0.015);
+  border-left: 2px solid rgba(196,184,232,0.12);
+}
+.app-you-said { font-family: var(--hand); font-size: 11px; color: var(--text3); opacity: 0.5; margin-bottom: 1px; }
+.app-result { font-family: var(--body); font-size: 11px; color: var(--text2); line-height: 1.4; }
+.aware-footnote {
+  text-align: center; margin-top: 32px;
+  font-family: var(--hand); font-size: 17px; color: var(--text3);
+}
+
+/* ========== COMPARISON ========== */
+.comparison {
+  padding: 80px 24px 90px;
+  background: linear-gradient(180deg, transparent 0%, rgba(36,33,46,0.5) 20%, rgba(36,33,46,0.5) 80%, transparent 100%);
+}
+.comparison-inner { max-width: 640px; margin: 0 auto; }
+.comparison-title {
+  font-family: var(--hand); font-size: 34px; font-weight: 700;
+  color: var(--warm); text-align: center; margin-bottom: 6px;
+}
+.comparison-sub {
+  font-family: var(--body); font-size: 13px; color: var(--text3);
+  text-align: center; margin-bottom: 36px;
+}
+.comp-table { width: 100%; border-collapse: collapse; }
+.comp-table th, .comp-table td { padding: 14px 16px; text-align: center; }
+.comp-table thead th {
+  font-family: var(--heading); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
+}
+.comp-table thead th:first-child { text-align: left; }
+.comp-table thead .th-yap { color: var(--lavender); }
+.comp-table thead .th-other { color: var(--text3); }
+.comp-table tbody td {
+  border-bottom: 1px solid var(--border);
+  font-family: var(--hand); font-size: 17px; font-weight: 600;
+}
+.comp-table tbody td:first-child {
+  font-family: var(--heading); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; color: var(--text3); text-align: left; width: 100px;
+}
+.comp-table .yap-col { color: var(--text1); }
+.comp-table .other-col { color: var(--text3); }
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.verdict-bar {
+  margin-top: 32px; padding: 18px 24px; border-radius: 16px;
+  background: rgba(244,162,97,0.06); border: 1px solid rgba(244,162,97,0.1); text-align: center;
+}
+.verdict-text { font-family: var(--hand); font-size: 22px; font-weight: 700; color: var(--warm); margin-bottom: 4px; }
+.verdict-sub { font-family: var(--body); font-size: 12px; color: var(--text3); }
+
+/* ========== FAQ ========== */
+.faq { padding: 80px 24px 90px; max-width: 600px; margin: 0 auto; }
+.faq-title {
+  font-family: var(--hand); font-size: 34px; font-weight: 700;
+  color: var(--lavender); text-align: center; margin-bottom: 36px;
+}
+.faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq-q {
+  font-family: var(--heading); font-size: 15px; font-weight: 700;
+  color: var(--text1); cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  user-select: none;
+}
+.faq-q::after {
+  content: '+'; font-family: var(--body); font-size: 20px; color: var(--text3); transition: transform 0.2s;
+}
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-a {
+  font-family: var(--body); font-size: 13px; font-weight: 500;
+  color: var(--text3); line-height: 1.7;
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s; padding-top: 0;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+
+/* ========== BOTTOM CTA ========== */
+.bottom-cta { padding: 60px 24px 40px; text-align: center; }
+.bottom-creature { width: 90px; height: 90px; margin: 0 auto 16px; }
+.bottom-title {
+  font-family: var(--logo); font-size: 38px; font-weight: 700;
+  background: linear-gradient(135deg, var(--lavender) 30%, var(--warm) 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+}
+.bottom-sub { font-family: var(--hand); font-size: 20px; color: var(--text3); margin-bottom: 24px; }
+
+/* ========== FOOTER ========== */
+footer {
+  padding: 40px 24px 32px; text-align: center; border-top: 1px solid var(--border);
+}
+.footer-links { display: flex; justify-content: center; gap: 28px; margin-bottom: 16px; flex-wrap: wrap; }
+.footer-links a {
+  font-family: var(--body); font-size: 12px; font-weight: 600;
+  color: var(--text3); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text2); }
+.footer-copy { font-family: var(--hand); font-size: 15px; color: rgba(255,255,255,0.08); }
+
+/* ========== ANIMATIONS ========== */
+.zzz-float { animation: floatZ 2.8s ease-in-out infinite; }
+@keyframes floatZ {
+  0%, 100% { opacity: 0.15; transform: translateY(0); }
+  50% { opacity: 0.7; transform: translateY(-4px); }
+}
+.breathe-anim { animation: breathe 3.5s ease-in-out infinite; transform-origin: 50% 72%; }
+@keyframes breathe {
+  0%, 100% { transform: scaleY(1) rotate(0); }
+  25% { transform: scaleY(1.02) rotate(1.5deg); }
+  75% { transform: scaleY(1.02) rotate(-1.5deg); }
+}
+.pulse-ring-anim { animation: pulseR 1.8s ease-out infinite; transform-origin: center; }
+.pulse-ring-anim.d { animation-delay: 0.9s; }
+@keyframes pulseR {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes penWiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(1.5deg); }
+  75% { transform: rotate(-1deg); }
+}
+.scribble-anim { stroke-dasharray: 30; stroke-dashoffset: 30; }
+.scribble-anim.s1 { animation: drawS 3s ease-in-out infinite; }
+.scribble-anim.s2 { animation: drawS 3s ease-in-out 0.8s infinite; }
+@keyframes drawS {
+  0%, 10% { stroke-dashoffset: 30; }
+  35%, 85% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 30; }
+}
+.spin-ring { animation: spinR 0.8s linear infinite; transform-origin: center; }
+@keyframes spinR { to { transform: rotate(360deg); } }
+.think-dot { animation: dotP 1.2s ease-in-out infinite; }
+@keyframes dotP { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.7; } }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+  nav { padding: 12px 16px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero-logo { font-size: 44px; }
+  .hero-tagline { font-size: 20px; }
+  .hero-steps { gap: 20px; }
+  .hero-step-creature { width: 40px; height: 40px; }
+  .aware-apps { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+  .comp-table th, .comp-table td { padding: 10px 8px; font-size: 14px; }
+  .footer-links { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <span class="nav-logo">YapYap</span>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#compare">Compare</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://github.com/nicecreatives/yapyap" target="_blank">GitHub</a>
+    <a href="#download" class="nav-cta">Download</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="download">
+  <div class="hero-creature">
+    <svg viewBox="-5 0 130 105" width="180" height="165">
+      <rect x="10" y="10" width="80" height="80" rx="35" fill="none" stroke="#F4A261" stroke-width="1" class="pulse-ring-anim"/>
+      <rect x="10" y="10" width="80" height="80" rx="35" fill="none" stroke="#F4A261" stroke-width="1" class="pulse-ring-anim d"/>
+      <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+      <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+      <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+      <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+      <circle cx="38" cy="42" r="5" fill="#2A2040"/>
+      <circle cx="52" cy="42" r="5" fill="#2A2040"/>
+      <circle cx="36.5" cy="39.5" r="1.75" fill="white"/>
+      <circle cx="50.5" cy="39.5" r="1.75" fill="white"/>
+      <ellipse cx="30" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+      <ellipse cx="60" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+      <path d="M41,53 Q45,56 49,53" stroke="#6B5E8A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M20,34 C20,8 66,8 66,34" fill="none" stroke="#7B6FA0" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="14" y="30" width="12" height="15" rx="3" fill="#F4A261"/>
+      <rect x="16" y="32.5" width="8" height="10" rx="2" fill="#E8914E"/>
+      <rect x="60" y="30" width="12" height="15" rx="3" fill="#F4A261"/>
+      <rect x="62" y="32.5" width="8" height="10" rx="2" fill="#E8914E"/>
+      <g transform="translate(82,62) rotate(8)">
+        <rect width="20" height="22" rx="2" fill="white" opacity="0.92"/>
+        <rect width="20" height="4" rx="2" fill="#E8E0F0"/>
+        <circle cx="5" cy="2" r="1.3" fill="none" stroke="#C4B8E8" stroke-width="0.7"/>
+        <circle cx="10" cy="2" r="1.3" fill="none" stroke="#C4B8E8" stroke-width="0.7"/>
+        <circle cx="15" cy="2" r="1.3" fill="none" stroke="#C4B8E8" stroke-width="0.7"/>
+        <path class="scribble-anim s1" d="M3,7.5 Q6,5.5 9,7.5 Q12,9.5 15,7.5 Q17,6 18,7.5" stroke="#7B6FA0" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <path class="scribble-anim s2" d="M3,11.5 Q7,9.5 10,11.5 Q13,13.5 16,11.5" stroke="#7B6FA0" stroke-width="1.5" fill="none" opacity="0.5"/>
+      </g>
+      <ellipse cx="72" cy="68" rx="8" ry="4.5" fill="#B8ABDB" transform="rotate(-25,72,68)"/>
+      <g style="animation:penWiggle 0.6s ease-in-out infinite;transform-origin:78px 64px;">
+        <line x1="78" y1="64" x2="94" y2="74" stroke="#F4A261" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="79" y1="64.5" x2="83" y2="67" stroke="#D4956B" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="78" cy="64" r="2.5" fill="#E8914E"/>
+        <polygon points="93,72 95,75 97,73" fill="#2A2040"/>
+        <ellipse cx="80" cy="65" rx="3" ry="2.5" fill="#C4B8E8" opacity="0.85"/>
+      </g>
+    </svg>
+  </div>
+
+  <h1 class="hero-logo">YapYap</h1>
+  <p class="hero-tagline">speak naturally. write 3x faster. privately. ✏️</p>
+  <p class="hero-sub">Voice-to-text that turns your rambling into polished writing — across every app on your Mac. Powered by on-device AI, so your voice never leaves your computer. No cloud. No subscription. No kidding.</p>
+  <a href="https://github.com/sunboy/YapYap/releases/download/v0.2.1/YapYap-v0.2.1.dmg" class="cta-btn">⬇ Download for Mac — free forever</a>
+  <div class="hero-pill"><span class="dot"></span> Free &nbsp;·&nbsp; 100% on-device &nbsp;·&nbsp; Apple Silicon &nbsp;·&nbsp; No account</div>
+
+  <!-- Inline 3-step strip -->
+  <div class="hero-steps" id="how">
+    <div class="hero-step">
+      <div class="hero-step-creature">
+        <svg viewBox="0 0 100 100" width="52" height="52" class="breathe-anim">
+          <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+          <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+          <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <path d="M35,42 Q39,46 43,42" stroke="#6B5E8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M48,42 Q52,46 56,42" stroke="#6B5E8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <text x="68" y="22" class="zzz-float" fill="#8B8FC7" font-size="7" font-family="Caveat,cursive">z</text>
+          <text x="74" y="13" class="zzz-float" fill="#8B8FC7" font-size="9.5" font-family="Caveat,cursive" style="animation-delay:0.6s">z</text>
+        </svg>
+      </div>
+      <span class="hero-step-label">lives in menu bar</span>
+    </div>
+    <span class="hero-step-arrow">→</span>
+    <div class="hero-step">
+      <div class="hero-step-creature">
+        <svg viewBox="0 0 100 100" width="52" height="52">
+          <rect x="12" y="12" width="76" height="76" rx="33" fill="none" stroke="#F4A261" stroke-width="1.2" class="pulse-ring-anim"/>
+          <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+          <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+          <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <circle cx="38" cy="42" r="5" fill="#2A2040"/>
+          <circle cx="52" cy="42" r="5" fill="#2A2040"/>
+          <circle cx="36.5" cy="39.5" r="1.75" fill="white"/>
+          <circle cx="50.5" cy="39.5" r="1.75" fill="white"/>
+          <ellipse cx="30" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+          <ellipse cx="60" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+        </svg>
+      </div>
+      <span class="hero-step-label">you talk naturally</span>
+    </div>
+    <span class="hero-step-arrow">→</span>
+    <div class="hero-step">
+      <div class="hero-step-creature">
+        <svg viewBox="0 0 100 100" width="52" height="52">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#C4B8E8" stroke-width="1.5" stroke-dasharray="86 203" stroke-linecap="round" class="spin-ring"/>
+          <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+          <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+          <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+          <circle cx="38" cy="42" r="5" fill="#2A2040"/>
+          <circle cx="52" cy="42" r="5" fill="#2A2040"/>
+          <circle cx="37" cy="39" r="1.75" fill="white"/>
+          <circle cx="51" cy="39" r="1.75" fill="white"/>
+          <circle cx="68" cy="32" r="1.5" fill="#C4B8E8" class="think-dot"/>
+          <circle cx="74" cy="25" r="2.2" fill="#C4B8E8" class="think-dot" style="animation-delay:0.3s"/>
+          <circle cx="81" cy="18" r="3" fill="#C4B8E8" class="think-dot" style="animation-delay:0.6s"/>
+        </svg>
+      </div>
+      <span class="hero-step-label">clean text, pasted</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTEXT-AWARE ========== -->
+<section class="aware">
+  <h2 class="aware-title">psst... i know where you are 👀</h2>
+  <p class="aware-sub">YapYap detects your active app and adjusts tone, formatting, and style automatically. Same voice, perfectly different output.</p>
+
+  <div class="aware-creature-row">
+    <div class="aware-creature-wrap">
+      <div class="radar-sweep"></div>
+      <div class="radar-sweep r2"></div>
+      <div class="radar-sweep r3"></div>
+      <svg viewBox="0 0 100 100" width="72" height="72" style="position:relative;z-index:2;">
+        <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+        <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+        <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+        <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+        <circle cx="40" cy="42" r="5.5" fill="#2A2040"/>
+        <circle cx="54" cy="42" r="5.5" fill="#2A2040"/>
+        <circle cx="42" cy="39.5" r="2" fill="white"/>
+        <circle cx="56" cy="39.5" r="2" fill="white"/>
+        <path d="M43,53 Q46,55.5 49,52" stroke="#6B5E8A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="30" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.45"/>
+        <ellipse cx="60" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.45"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="aware-apps">
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon ide">⌨️</div>
+        <span class="app-name">VS Code</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"create a variable called user count set it to the array length"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result" style="font-family:monospace;color:var(--mint)">const userCount = arr.length;</div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon email">📧</div>
+        <span class="app-name">Email</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"hey thanks for the intro would love to chat next week"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result">Thank you for the introduction. I'd love to connect next week to discuss further.</div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon slack">💬</div>
+        <span class="app-name">Slack</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"yeah the deploy looks good ship it let's go"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result">deploy looks good, ship it 🚀</div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon docs">📝</div>
+        <span class="app-name">Docs</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"so basically revenue was up um twelve percent"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result">Revenue increased 12% year-over-year, reflecting strong quarterly performance.</div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon term">▸_</div>
+        <span class="app-name">Terminal</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"list all running docker containers"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result" style="font-family:monospace;color:var(--red)">docker ps</div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-card-top">
+        <div class="app-icon social">🐦</div>
+        <span class="app-name">Twitter</span>
+        <span class="app-check">check ✓</span>
+      </div>
+      <div class="app-example">
+        <div class="app-you-said">you said:</div>
+        <div class="app-result" style="color:var(--text3);font-style:italic">"just launched my new app and I'm really excited"</div>
+        <div class="app-you-said" style="margin-top:4px">yapyap typed:</div>
+        <div class="app-result">just launched my new app — pretty hyped about this one 🎉</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="aware-footnote">professional in email. casual in Slack. precise in code. all from the same ramble. 💜</p>
+</section>
+
+<!-- ========== COMPARISON ========== -->
+<section class="comparison" id="compare">
+  <div class="comparison-inner">
+    <h2 class="comparison-title">the honest comparison 🤔</h2>
+    <p class="comparison-sub">cloud dictation tools are great. we just think your voice shouldn't leave your Mac.</p>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="th-yap">YapYap</th>
+          <th class="th-other">Others</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Personality</td>
+          <td class="yap-col">a creature that writes with you ✏️</td>
+          <td class="other-col">a waveform, maybe</td>
+        </tr>
+        <tr>
+          <td>Privacy</td>
+          <td class="yap-col">never leaves your Mac 🔒</td>
+          <td class="other-col">audio sent to cloud servers</td>
+        </tr>
+        <tr>
+          <td>Quality</td>
+          <td class="yap-col">93-95% + LLM cleanup 🎯</td>
+          <td class="other-col">95%+ cloud accuracy</td>
+        </tr>
+        <tr>
+          <td>Speed</td>
+          <td class="yap-col">3x faster than typing ⚡</td>
+          <td class="other-col">3x faster than typing ⚡</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="yap-col">$0 forever 🎉</td>
+          <td class="other-col">$8-15/mo ($100-180/yr)</td>
+        </tr>
+        <tr>
+          <td>Source</td>
+          <td class="yap-col">fully open source 🌱</td>
+          <td class="other-col">closed source</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict-bar">
+      <div class="verdict-text">same speed. same magic. just private and free. 💛</div>
+      <div class="verdict-sub">cloud tools are great — but if privacy matters and you'd rather not pay $144/year, well... hi there</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="faq" id="faq">
+  <h2 class="faq-title">things people ask 💬</h2>
+
+  <div class="faq-item open">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Wait, it's actually free? What's the catch?</div>
+    <div class="faq-a">No catch. YapYap runs on open-source models (WhisperKit for STT, MLX for cleanup) that execute locally on your Mac's hardware. There are no servers to pay for, so there's nothing to charge you for. No trial, no word limits, no "upgrade for Pro."</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does my voice ever leave my computer?</div>
+    <div class="faq-a">Never. Unlike cloud dictation tools that send audio to external servers, YapYap processes everything on your Mac's Neural Engine. Your voice is transcribed locally, cleaned up locally, and discarded immediately. Zero network calls.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How fast is it compared to typing?</div>
+    <div class="faq-a">Most people speak at 130-170 WPM vs typing at 40-80 WPM. With YapYap, you get clean, formatted text at speaking speed — roughly 3x faster than typing. The cleanup adds under a second of processing time... well, most times. Maybe under 5 seconds tops if you have an older, slow Mac.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What Macs does it support?</div>
+    <div class="faq-a">Any Mac with Apple Silicon — M1, M2, M3, M4 and all their Pro/Max/Ultra variants. The on-device models require the Neural Engine, so Intel Macs are not supported.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does it know which app I'm using?</div>
+    <div class="faq-a">YapYap uses macOS accessibility APIs to detect the frontmost application — the same way any menu bar app works. It categorizes apps (IDE, email, chat, docs, terminal, social) and adjusts the cleanup prompt. No screenshots, no screen recording, no content reading.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What AI models does it use?</div>
+    <div class="faq-a">For text cleanup, YapYap defaults to Gemma 4B — a great balance of quality and speed on Apple Silicon. You can also switch to Gemma 1B for faster processing on lower-end machines, or choose from Qwen and Llama family models depending on your preference. All run locally via MLX.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What about the speech-to-text engine?</div>
+    <div class="faq-a">Whisper (via WhisperKit) is the default — battle-tested and excellent for English. We also support NVIDIA's Parakeet models for faster inference, and Voxtral support is coming soon. You can swap engines in settings without losing any of your preferences.</div>
+  </div>
+    <div class="faq-a">WhisperKit delivers 93-95% raw accuracy. The LLM cleanup step then fixes grammar, removes filler words, and formats the output — bringing the final result very close to cloud-powered tools. For most real-world dictation, the difference is imperceptible.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is it open source?</div>
+    <div class="faq-a">Fully. The source code is on GitHub under an open license. Inspect it, fork it, contribute to it. New Whisper models or LLM improvements can be integrated by anyone in the community. That's how YapYap keeps getting better — together.</div>
+  </div>
+</section>
+
+<!-- ========== BOTTOM CTA ========== -->
+<section class="bottom-cta">
+  <div class="bottom-creature">
+    <svg viewBox="0 0 100 100" width="90" height="90">
+      <ellipse cx="50" cy="71.5" rx="26" ry="16.5" fill="#C4B8E8"/>
+      <circle cx="45" cy="42" r="22" fill="#C4B8E8"/>
+      <ellipse cx="27" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+      <ellipse cx="63" cy="19" rx="5" ry="7" fill="#C4B8E8"/>
+      <circle cx="38" cy="42" r="5" fill="#2A2040"/>
+      <circle cx="36.5" cy="39.5" r="1.75" fill="white"/>
+      <path d="M48,42 Q52,46 56,42" stroke="#6B5E8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M38,53 Q45,60 52,53" stroke="#6B5E8A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="30" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+      <ellipse cx="60" cy="50" rx="5" ry="2.2" fill="#E8A0B4" opacity="0.4"/>
+    </svg>
+  </div>
+  <h2 class="bottom-title">stop typing. start talking.</h2>
+  <p class="bottom-sub">write 3x faster without giving up your privacy</p>
+  <a href="https://github.com/sunboy/YapYap/releases/download/v0.2.1/YapYap-v0.2.1.dmg" class="cta-btn">⬇ Download for Mac — free forever</a>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-links">
+    <a href="https://github.com/nicecreatives/yapyap" target="_blank">GitHub</a>
+    <a href="#faq">FAQ</a>
+    <a href="/cdn-cgi/l/email-protection#58303d3434371821392821392876392828">Contact</a>
+    <a href="#">Privacy</a>
+    <a href="#">Changelog</a>
+  </div>
+  <p class="footer-copy">~ made with love and a lot of ta
